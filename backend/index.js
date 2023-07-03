@@ -8,3 +8,4 @@
 // npm i opt-generator
 // npm i bycrypt
 // npm install cloudinary
+//npm i razorpay

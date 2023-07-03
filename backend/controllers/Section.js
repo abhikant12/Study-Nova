@@ -24,7 +24,7 @@ exports.createSection = async (req, res) => {
                                                 $push:{ courseContent:newSection._id, } 
                                             },
                                             {new:true},
-                                        );
+                                        ).populate({path: "courseContent",populate: {path: "subSection",},}).exec();
        
         return res.status(200).json({                              //return response
             success:true,
@@ -73,8 +73,6 @@ exports.deleteSection = async (req,res) => {
     try {
         const {sectionId} = req.params                          //get ID - assuming that we are sending ID in params
         await Section.findByIdAndDelete(sectionId);             //use findByIdandDelete
-
-        //TODO[Testing]: do we need to delete the entry from the course schema ??
         
         return res.status(200).json({                            //return response
             success:true,

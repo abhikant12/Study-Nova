@@ -7,7 +7,7 @@ const {uploadImageToCloudinary} = require("../utils/imageUploader");
 //createCourse handler function
 exports.createCourse = async (req, res) => {
     try{
-        const {courseName, courseDescription, whatYoutWillLearn, price, tag} = req.body;            //fetch data 
+        const {courseName, courseDescription, whatYoutWillLearn, price, tag ,category,status,instructions,} = req.body;            //fetch data 
         const thumbnail = req.files.thumbnailImage;                                                 //get thumbnail
 
         if(!courseName || !courseDescription || !whatYoutWillLearn || !price || !tag || !thumbnail){         //validation
@@ -18,21 +18,21 @@ exports.createCourse = async (req, res) => {
         }
 
         const userId = req.user.id;                                                     //check for instructor , check we have store user_id in controller/login/payload so we 
-        const instructorDetails = await User.findById(userId);                         // are fetching instructor id from request;
+        const instructorDetails = await User.findById(userId , {accountType: "Instructor",});     // are fetching instructor id from request;
         if(!instructorDetails) {                                                      //validation of instructor
             return res.status(404).json({
                 success:false,
                 message:'Instructor Details not found',
             });
         }
-
-        const tagDetails = await Tag.findById(tag);                                  //check given tag is valid or not
-        if(!tagDetails) {
-            return res.status(404).json({
-                success:false,
-                message:'Tag Details not found',
-            });
-        }
+       
+		const categoryDetails = await Category.findById(category);                     // Check if the tag given is valid
+		if (!categoryDetails) {
+			return res.status(404).json({
+				success: false,
+				message: "Category Details Not Found",
+			});
+		}
 
         //Upload Image top Cloudinary
         const thumbnailImage = await uploadImageToCloudinary(thumbnail, process.env.FOLDER_NAME);
@@ -44,8 +44,11 @@ exports.createCourse = async (req, res) => {
             instructor: instructorDetails._id,
             whatYouWillLearn: whatYoutWillLearn,
             price,
-            tag:tagDetails._id,
-            thumbnail:thumbnailImage.secure_url,
+            tag: tag,
+			category: categoryDetails._id,
+			thumbnail: thumbnailImage.secure_url,
+			status: status,
+			instructions: instructions,
         })
 
         await User.findByIdAndUpdate(                             //add the new course to the user(instructor) schema means add this course to  
@@ -56,8 +59,8 @@ exports.createCourse = async (req, res) => {
             {new:true},
         );
 
-        await Tag.findByIdAndUpdate(                              //update the TAG ka schema 
-            {_id: tagDetails._id},                         
+        await Tag.findByIdAndUpdate(                              //update the category ka schema 
+            {_id: category},                         
             {                                                   
                 $push: {courses: newCourse._id,}
             },
@@ -66,8 +69,8 @@ exports.createCourse = async (req, res) => {
          
         return res.status(200).json({                                              //return response
             success:true, 
-            message:"Course Created Successfully",
             data:newCourse,
+            message:"Course Created Successfully",
         });
     }
     catch(error) {
@@ -81,12 +84,21 @@ exports.createCourse = async (req, res) => {
 };
 
 
-
 //getAllCourses handler function
-exports.showAllCourses = async (req, res) => {
+exports.getAllCourses = async (req, res) => {
     try {
-            //TODO: change the below statement incrementally
-            const allCourses = await Course.find({});                             // it find all courses;
+             // it find all courses;
+            const allCourses = await Course.find(
+                    {},
+                {
+                    courseName: true,
+                    price: true,
+                    thumbnail: true,
+                    instructor: true,
+                    ratingAndReviews: true,
+                    studentsEnroled: true,
+                }
+            ) .populate("instructor").exec();                        
 
             return res.status(200).json({
                 success:true,
@@ -102,5 +114,38 @@ exports.showAllCourses = async (req, res) => {
             message:'Cannot Fetch course data',
             error:error.message,
         })
+    }
+}
+
+
+//getCourseDetails
+exports.getCourseDetails = async (req, res) => {
+    try {
+            const {courseId} = req.body;                              //get id
+            const courseDetails = await Course.find(                   //find course details
+                                        {_id:courseId})
+                                        .populate({path:"instructor", populate:{path:"additionalDetails", },})
+                                        .populate("category")
+                                        .populate("ratingAndreviews")
+                                        .populate({path:"courseContent", populate:{path:"subSection", },})
+                                        .exec();
+                if(!courseDetails) {                                     //validation
+                    return res.status(400).json({
+                        success:false,
+                        message:`Could not find the course with ${courseId}`,
+                    });
+                }
+                return res.status(200).json({                            //return response
+                    success:true,
+                    message:"Course Details fetched successfully",
+                    data:courseDetails,
+                })
+         }
+    catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message:error.message,
+        });
     }
 }

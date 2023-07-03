@@ -30,9 +30,8 @@ exports.createSubSection = async (req, res) => {
             //update section with this sub section ObjectId, here sectionId is id of section in which this subsection is present;
             const updatedSection = await Section.findByIdAndUpdate({_id:sectionId},
                                                         {$push:{subSection:subSectionDetails._id,}},
-                                                        {new:true});
+                                                        {new:true}).populate("subSection");
 
-            //HW: log updated section here, after adding populate query
             
             return res.status(200).json({                                          //return response
                 succcess:true,

@@ -44,7 +44,7 @@ exports.updateProfile = async (req, res) => {
 exports.deleteAccount = async (req, res) => {
     try{
         const id = req.user.id;                                       //get id 
-        const userDetails = await User.findById(id);                 //validation
+        const userDetails = await User.findById({_id : id});                 //validation
         if(!userDetails) {
             return res.status(404).json({
                 success:false,
@@ -78,6 +78,7 @@ exports.getAllUserDetails = async (req, res) => {
         return res.status(200).json({                              //return response
             success:true,
             message:'User Data Fetched Successfully',
+            data : userDetails,
         });
     }
     catch(error) {
