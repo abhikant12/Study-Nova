@@ -1,6 +1,6 @@
 const Category = require("../models/Category");
 
-exports.createCategory = async (req, res) => {
+const createCategory = async (req, res) => {
 	try {
 		const { name, description } = req.body;
 		if(!name) {
@@ -27,7 +27,7 @@ exports.createCategory = async (req, res) => {
 	}
 };
 
-exports.showAllCategories = async (req, res) => {
+const showAllCategories = async (req, res) => {
 	try {
 		const allCategorys = await Category.find({},{ name: true, description: true });
 		
@@ -43,7 +43,7 @@ exports.showAllCategories = async (req, res) => {
 	}
 };
 
-exports.categoryPageDetails = async (req, res) => {
+const categoryPageDetails = async (req, res) => {
 	try {
 		const { categoryId } = req.body;                           //fetch data;
 
@@ -88,3 +88,5 @@ exports.categoryPageDetails = async (req, res) => {
 		});
 	}
 };
+
+module.exports =  {createCategory , showAllCategories , categoryPageDetails};

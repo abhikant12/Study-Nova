@@ -4,7 +4,7 @@ const Course = require("../models/Course");
 
 
 //in course we create many section like chapter_1 , chapter_2 and in section we create many subsection like chapter_1 divided into five topic...
-exports.createSection = async (req, res) => {
+const createSection = async (req, res) => {
     try{
         const {sectionName, courseId} = req.body;                               //data fetch
         if(!sectionName || !courseId) {                                          //data validation
@@ -42,7 +42,7 @@ exports.createSection = async (req, res) => {
 }
 
 
-exports.updateSection = async (req,res) => {
+const updateSection = async (req,res) => {
     try {
         const {sectionName, sectionId} = req.body;                  //data input
         if(!sectionName || !sectionId) {                           //data validation
@@ -69,7 +69,7 @@ exports.updateSection = async (req,res) => {
 };
 
 
-exports.deleteSection = async (req,res) => {
+const deleteSection = async (req,res) => {
     try {
         const {sectionId} = req.params                          //get ID - assuming that we are sending ID in params
         await Section.findByIdAndDelete(sectionId);             //use findByIdandDelete
@@ -87,3 +87,5 @@ exports.deleteSection = async (req,res) => {
         });
     }
 }
+
+module.exports = {createSection , updateSection , deleteSection};

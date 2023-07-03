@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 
 //resetPasswordToken :- it generate token and send URL with Token to the user;
-exports.resetPasswordToken = async (req, res) => {
+const resetPasswordToken = async (req, res) => {
     try {
         const email = req.body.email;                              //get email from req body
         const user = await User.findOne({email: email});           //check user for this email,find user which email is matched to this email;
@@ -37,11 +37,11 @@ exports.resetPasswordToken = async (req, res) => {
             message:'Something went wrong while sending reset pwd mail'
         })
     }
-}
+};
 
 
 //resetPassword/
-exports.resetPassword = async (req, res) => {
+const resetPassword = async (req, res) => {
     try {
         const {password, confirmPassword, token} = req.body;                   //data fetch
         if(password !== confirmPassword) {                                    //validation
@@ -87,4 +87,6 @@ exports.resetPassword = async (req, res) => {
             message:'Something went wrong while sending reset pwd mail'
         })
     }
-}
+};
+
+module.exports =  {resetPasswordToken , resetPassword };

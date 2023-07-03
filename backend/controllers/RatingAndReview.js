@@ -4,7 +4,7 @@ const { mongo, default: mongoose } = require("mongoose");
 
 
 //createRating
-exports.createRating = async (req, res) => {
+const createRating = async (req, res) => {
     try{
         const userId = req.user.id;                                                   //get user id
         const {rating, review, courseId} = req.body;                                 //fetchdata from req body
@@ -59,7 +59,7 @@ exports.createRating = async (req, res) => {
 
 
 //getAverageRating
-exports.getAverageRating = async (req, res) => {
+const getAverageRating = async (req, res) => {
     try {
             const courseId = req.body.courseId;                             //get course ID
             
@@ -95,7 +95,7 @@ exports.getAverageRating = async (req, res) => {
 
 
 //getAllRatingAndReviews
-exports.getAllRating = async (req, res) => {
+const getAllRating = async (req, res) => {
     try{
             const allReviews = await RatingAndReview.find({})
                                     .sort({rating: "desc"})
@@ -122,3 +122,5 @@ exports.getAllRating = async (req, res) => {
         })
     } 
 }
+
+module.exports =  {createRating , getAverageRating , getAllRating};

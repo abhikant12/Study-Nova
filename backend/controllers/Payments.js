@@ -8,7 +8,7 @@ const { default: mongoose } = require("mongoose");
 
 
 //capture the payment and initiate the Razorpay order
-exports.capturePayment = async (req, res) => {
+const capturePayment = async (req, res) => {
     
     const {course_id} = req.body;                                       //get courseId and UserID
     const userId = req.user.id;
@@ -84,9 +84,8 @@ exports.capturePayment = async (req, res) => {
 };
 
 
-
 //verify Signature of Razorpay and Server
-exports.verifySignature = async (req, res) => {
+const verifySignature = async (req, res) => {
 
     const webhookSecret = "12345678";
     const signature = req.headers["x-razorpay-signature"];
@@ -148,3 +147,6 @@ exports.verifySignature = async (req, res) => {
         });
     }
 };
+
+
+module.exports =  {capturePayment , verifySignature};

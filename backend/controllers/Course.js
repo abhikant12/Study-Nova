@@ -5,7 +5,7 @@ const {uploadImageToCloudinary} = require("../utils/imageUploader");
 
 
 //createCourse handler function
-exports.createCourse = async (req, res) => {
+const createCourse = async (req, res) => {
     try{
         const {courseName, courseDescription, whatYoutWillLearn, price, tag ,category,status,instructions,} = req.body;            //fetch data 
         const thumbnail = req.files.thumbnailImage;                                                 //get thumbnail
@@ -85,7 +85,7 @@ exports.createCourse = async (req, res) => {
 
 
 //getAllCourses handler function
-exports.getAllCourses = async (req, res) => {
+const getAllCourses = async (req, res) => {
     try {
              // it find all courses;
             const allCourses = await Course.find(
@@ -119,7 +119,7 @@ exports.getAllCourses = async (req, res) => {
 
 
 //getCourseDetails
-exports.getCourseDetails = async (req, res) => {
+const getCourseDetails = async (req, res) => {
     try {
             const {courseId} = req.body;                              //get id
             const courseDetails = await Course.find(                   //find course details
@@ -149,3 +149,5 @@ exports.getCourseDetails = async (req, res) => {
         });
     }
 }
+
+module.exports =  {createCourse , getAllCourses , getCourseDetails};
