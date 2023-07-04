@@ -1,26 +1,26 @@
 const Profile = require("../models/Profile");
 const User = require("../models/User");
+const { uploadImageToCloudinary } = require("../utils/imageUploader");
 
 
 const updateProfile = async (req, res) => {
     try{
-            const {dateOfBirth="", about="", contactNumber, gender} = req.body;               //get data
-            const id = req.user.id;                                                          //get userId
-            if(!contactNumber || !gender || !id) {                                          //validation
+            const {dateOfBirth="", about="", contactNumber} = req.body;                //get data entered by user;
+            const id = req.user.id;                                                    //get userId , here user is logined so he updated  his profile;
+            if(!contactNumber || !id) {                                                //validation
                 return res.status(400).json({
                     success:false,
                     message:'All fields are required',
                 });
             } 
             //find profile
-            const userDetails = await User.findById(id);
+            const userDetails = await User.findById(id);                                
             const profileId = userDetails.additionalDetails;
             const profileDetails = await Profile.findById(profileId);
 
             //update profile
             profileDetails.dateOfBirth = dateOfBirth;
             profileDetails.about = about;
-            profileDetails.gender = gender;
             profileDetails.contactNumber = contactNumber;
             await profileDetails.save();
            
@@ -72,7 +72,7 @@ const deleteAccount = async (req, res) => {
 const getAllUserDetails = async (req, res) => {
 
     try {
-        const id = req.user.id;                 //get id
+        const id = req.user.id;                                           //get userId , here user is logined so he updated  his profile;
         const userDetails = await User.findById(id).populate("additionalDetails").exec();           //validation and get user details
       
         return res.status(200).json({                              //return response

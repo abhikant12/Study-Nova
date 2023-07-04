@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const mailSender = require("../utils/mailSender");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 
 
 //resetPasswordToken :- it generate token and send URL with Token to the user;
@@ -18,7 +19,7 @@ const resetPasswordToken = async (req, res) => {
                                         {email:email},
                                         {
                                             token:token,
-                                            resetPasswordExpires: Date.now() + 3600000,
+                                            resetPasswordExpires: Date.now() + 5*60*60,
                                         },
                                         {new:true});                  // {new:true} added because it return updated object so updatedDetails contain updated details;
         
@@ -59,7 +60,7 @@ const resetPassword = async (req, res) => {
             });
         }
 
-        if(userDetails.resetPasswordExpires > Date.now()){                 //token time check 
+        if(userDetails.resetPasswordExpires < Date.now()){                 //token time check 
                 return res.json({
                     success:false,
                     message:'Token is expired, please regenerate your token',

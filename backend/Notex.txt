@@ -1,0 +1,4 @@
+Category is only created by "Admin" , if Admin is login then he can create category;
+
+Instructor :- if Instructor is login then he can create "Course" , "Section" , "SubSection" ,
+ 

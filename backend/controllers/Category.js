@@ -90,3 +90,6 @@ const categoryPageDetails = async (req, res) => {
 };
 
 module.exports =  {createCategory , showAllCategories , categoryPageDetails};
+
+
+ 

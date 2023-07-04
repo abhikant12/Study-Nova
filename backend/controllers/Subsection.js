@@ -19,7 +19,7 @@ const createSubSection = async (req, res) => {
 
             const uploadDetails = await uploadImageToCloudinary(video, process.env.FOLDER_NAME);        //upload video to cloudinary
 
-            //create a sub-section in DB;
+            //create a sub-section in SubSection in DB;
             const subSectionDetails = await SubSection.create({
                 title:title,
                 timeDuration:timeDuration,
@@ -51,8 +51,8 @@ const createSubSection = async (req, res) => {
   
 const updateSubSection = async (req, res) => {
     try {
-      const { sectionId, title, description } = req.body
-      const subSection = await SubSection.findById(sectionId)
+      const { subsectionId, title, description } = req.body;
+      const subSection = await SubSection.findById(subsectionId);
   
       if (!subSection) {
         return res.status(404).json({

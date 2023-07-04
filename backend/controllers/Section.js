@@ -71,10 +71,12 @@ const updateSection = async (req,res) => {
 
 const deleteSection = async (req,res) => {
     try {
-        const {sectionId} = req.params                          //get ID - assuming that we are sending ID in params
-        await Section.findByIdAndDelete(sectionId);             //use findByIdandDelete
+        const {sectionId, courseId} = req.body;                           //get ID - assuming that we are sending ID in params
+        await Section.findByIdAndDelete(sectionId);                       //use findByIdandDelete
         
-        return res.status(200).json({                            //return response
+        const course = await Course.findByIdAndUpdate(courseId, {Section}, {new:true});    //here there is no use of const course , its only store updated course;
+                                                                                           // if you also write without  "const course = " then it also work;
+        return res.status(200).json({                                        //return response
             success:true,
             message:"Section Deleted Successfully",
         })
@@ -89,3 +91,5 @@ const deleteSection = async (req,res) => {
 }
 
 module.exports = {createSection , updateSection , deleteSection};
+
+ 

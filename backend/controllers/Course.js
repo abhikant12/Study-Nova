@@ -1,21 +1,25 @@
 const Course = require("../models/Course");
-const Tag = require("../models/tags");
+const Category = require("../models/Category");
 const User = require("../models/User");
-const {uploadImageToCloudinary} = require("../utils/imageUploader");
+const { uploadImageToCloudinary } = require("../utils/imageUploader");
 
 
 //createCourse handler function
 const createCourse = async (req, res) => {
     try{
-        const {courseName, courseDescription, whatYoutWillLearn, price, tag ,category,status,instructions,} = req.body;            //fetch data 
+        let {courseName, courseDescription, whatYouWillLearn, price, tag ,category,status,instructions,} = req.body;            //fetch data 
         const thumbnail = req.files.thumbnailImage;                                                 //get thumbnail
 
-        if(!courseName || !courseDescription || !whatYoutWillLearn || !price || !tag || !thumbnail){         //validation
+        if(!courseName || !courseDescription || !whatYouWillLearn || !price || !tag || !thumbnail || !category){                  //validation	                                                                                          
             return res.status(400).json({
                 success:false,
                 message:'All fields are required',
             });
         }
+
+        if(!status || status === undefined){
+			status = "Draft";
+		}
 
         const userId = req.user.id;                                                     //check for instructor , check we have store user_id in controller/login/payload so we 
         const instructorDetails = await User.findById(userId , {accountType: "Instructor",});     // are fetching instructor id from request;
@@ -42,7 +46,7 @@ const createCourse = async (req, res) => {
             courseName,
             courseDescription,
             instructor: instructorDetails._id,
-            whatYouWillLearn: whatYoutWillLearn,
+            whatYouWillLearn: whatYouWillLearn,
             price,
             tag: tag,
 			category: categoryDetails._id,
@@ -59,7 +63,7 @@ const createCourse = async (req, res) => {
             {new:true},
         );
 
-        await Tag.findByIdAndUpdate(                              //update the category ka schema 
+        await Category.findByIdAndUpdate(                              //update the category ka schema 
             {_id: category},                         
             {                                                   
                 $push: {courses: newCourse._id,}
@@ -126,7 +130,6 @@ const getCourseDetails = async (req, res) => {
                                         {_id:courseId})
                                         .populate({path:"instructor", populate:{path:"additionalDetails", },})
                                         .populate("category")
-                                        .populate("ratingAndreviews")
                                         .populate({path:"courseContent", populate:{path:"subSection", },})
                                         .exec();
                 if(!courseDetails) {                                     //validation
