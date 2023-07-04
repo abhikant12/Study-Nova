@@ -1,4 +1,7 @@
 Category is only created by "Admin" , if Admin is login then he can create category;
 
 Instructor :- if Instructor is login then he can create "Course" , "Section" , "SubSection" ,
+
+To set type as an ObjectId (so you may reference something to this) in models, you may do like :- type: mongoose.Schema.Types.ObjectId
+like we do this type in studentsEnrolled So we store many studentsEnrolled_id in this.;
  

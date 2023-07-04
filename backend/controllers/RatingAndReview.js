@@ -28,7 +28,7 @@ const createRating = async (req, res) => {
                         message:'Course is already reviewed by the user',
                     });
                 }
-        //create rating and review in DB;
+        //create an entry for ratingandreview in RatingAndReview folder in DB;
         const ratingReview = await RatingAndReview.create({
                                         rating, review, 
                                         course:courseId,

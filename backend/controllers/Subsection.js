@@ -53,7 +53,6 @@ const updateSubSection = async (req, res) => {
     try {
       const { subsectionId, title, description } = req.body;
       const subSection = await SubSection.findById(subsectionId);
-  
       if (!subSection) {
         return res.status(404).json({
           success: false,

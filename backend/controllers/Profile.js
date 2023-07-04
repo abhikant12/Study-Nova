@@ -40,10 +40,9 @@ const updateProfile = async (req, res) => {
 
 
 //deleteAccount
-//Explore -> how can we schedule this deletion operation
 const deleteAccount = async (req, res) => {
     try{
-        const id = req.user.id;                                       //get id 
+        const id = req.user.id;                                                //get id 
         const userDetails = await User.findById({_id : id});                 //validation
         if(!userDetails) {
             return res.status(404).json({
@@ -52,8 +51,8 @@ const deleteAccount = async (req, res) => {
             });
         } 
         
-        await Profile.findByIdAndDelete({_id:userDetails.additionalDetails});            //delete profile
-        await User.findByIdAndDelete({_id:id});                                          //delete user
+        await Profile.findByIdAndDelete({_id:userDetails.additionalDetails});            //delete account from profiles
+        await User.findByIdAndDelete({_id:id});                                          //delete account from users
        
         return res.status(200).json({                                      //return response
             success:true,
@@ -94,18 +93,12 @@ const updateDisplayPicture = async (req, res) => {
     try {
       const displayPicture = req.files.displayPicture
       const userId = req.user.id
-      const image = await uploadImageToCloudinary(
-        displayPicture,
-        process.env.FOLDER_NAME,
-        1000,
-        1000
-      )
+
+      const image = await uploadImageToCloudinary( displayPicture, process.env.FOLDER_NAME,  1000,  1000 )
+        
       console.log(image)
-      const updatedProfile = await User.findByIdAndUpdate(
-        { _id: userId },
-        { image: image.secure_url },
-        { new: true }
-      )
+      const updatedProfile = await User.findByIdAndUpdate( { _id: userId }, { image: image.secure_url },  { new: true } )
+        
       res.send({
         success: true,
         message: `Image Updated successfully`,
@@ -123,12 +116,9 @@ const updateDisplayPicture = async (req, res) => {
 const getEnrolledCourses = async (req, res) => {
     try {
       const userId = req.user.id
-      const userDetails = await User.findOne({
-        _id: userId,
-      })
-        .populate("courses")
-        .exec()
-      if (!userDetails) {
+      const userDetails = await User.findOne({ _id: userId,}).populate("courses").exec()
+      
+      if(!userDetails) {
         return res.status(400).json({
           success: false,
           message: `Could not find user with id: ${userDetails}`,

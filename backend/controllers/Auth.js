@@ -8,7 +8,6 @@ const { passwordUpdated } = require("../mail/templates/passwordUpdate");
 const Profile = require("../models/Profile");
 require("dotenv").config();
 
-//note we have to check that where controller function are called/used;
 
 
 //signUp
@@ -109,7 +108,7 @@ const login = async (req, res) => {
     try {
         const {email, password} = req.body;                  //get data from req body
       
-        if(!email || !password){                             // //validate krlo means all inbox are filled or not;
+        if(!email || !password){                             // validate krlo means all inbox are filled or not;
             return res.status(403). json({
                 success:false,
                 message:'Please Fill up All the Required Fields',
@@ -220,43 +219,31 @@ const sendOTP = async (req, res) =>  {
 // Controller for Changing Password
 const changePassword = async (req, res) => {
 	try {
-		// Get user data from req.user
-		const userDetails = await User.findById(req.user.id);
+		const userDetails = await User.findById(req.user.id);                         // Get user data from req.user
+		const { oldPassword, newPassword, confirmNewPassword } = req.body;            // Get old password, new password, and confirm new password from req.body
 
-		// Get old password, new password, and confirm new password from req.body
-		const { oldPassword, newPassword, confirmNewPassword } = req.body;
-
-		// Validate old password
-		const isPasswordMatch = await bcrypt.compare(
+		const isPasswordMatch = await bcrypt.compare(                                // Validate old password
 			oldPassword,
 			userDetails.password
 		);
-		if (!isPasswordMatch) {
-			// If old password does not match, return a 401 (Unauthorized) error
+		if (!isPasswordMatch) {                                  // If old password does not match, return a 401 (Unauthorized) error
 			return res
 				.status(401)
 				.json({ success: false, message: "The password is incorrect" });
 		}
 
-		// Match new password and confirm new password
-		if (newPassword !== confirmNewPassword) {
-			// If new password and confirm new password do not match, return a 400 (Bad Request) error
+		if (newPassword !== confirmNewPassword) {                             // Match new password and confirm new password
 			return res.status(400).json({
 				success: false,
 				message: "The password and confirm password does not match",
 			});
 		}
 
-		// Update password
-		const encryptedPassword = await bcrypt.hash(newPassword, 10);
-		const updatedUserDetails = await User.findByIdAndUpdate(
-			req.user.id,
-			{ password: encryptedPassword },
-			{ new: true }
-		);
-
-		// Send notification email
-		try {
+		const encryptedPassword = await bcrypt.hash(newPassword, 10);             // Update password
+		const updatedUserDetails = await User.findByIdAndUpdate(req.user.id , { password: encryptedPassword } , { new: true });
+                                                                                  // find user by id and then update password = encryptedPassword , here if you "const updatedUserDetails =" does not wirte this then also it not affect;
+		 
+		try {                                                          // Send notification email
 			const emailResponse = await mailSender(
 				updatedUserDetails.email,
 				passwordUpdated(
@@ -266,7 +253,6 @@ const changePassword = async (req, res) => {
 			);
 			console.log("Email sent successfully:", emailResponse.response);
 		} catch (error) {
-			// If there's an error sending the email, log the error and return a 500 (Internal Server Error) error
 			console.error("Error occurred while sending email:", error);
 			return res.status(500).json({
 				success: false,
@@ -275,12 +261,10 @@ const changePassword = async (req, res) => {
 			});
 		}
 
-		// Return success response
-		return res
+		return res                                 	// Return success response 
 			.status(200)
 			.json({ success: true, message: "Password updated successfully" });
 	} catch (error) {
-		// If there's an error updating the password, log the error and return a 500 (Internal Server Error) error
 		console.error("Error occurred while updating password:", error);
 		return res.status(500).json({
 			success: false,

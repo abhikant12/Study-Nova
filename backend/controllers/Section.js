@@ -52,8 +52,8 @@ const updateSection = async (req,res) => {
             });
         }
         
-        const section = await Section.findByIdAndUpdate(sectionId, {sectionName}, {new:true});            //update data
-
+        const section = await Section.findByIdAndUpdate(sectionId, {sectionName}, {new:true});            //it find section that id is matched with sectionid and in that section {sectionName} is updated;
+                                                                                                         // await Section.findByIdAndUpdate(sectionId, {sectionName}, {new:true}); agar hm itna bhi likhe to koi effect nhi padega;
         return res.status(200).json({                              //return res
             success:true,
             message:'Section Updated Successfully',

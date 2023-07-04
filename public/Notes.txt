@@ -1,0 +1,33 @@
+***you can run backend and frontend simultaneously by command :- (npm i concurrently) both frontend and backend run at
+   same port;  and add these two commend in script in package.json so both run simultaneously and backend run shown by
+   yellow color and frontend run shown by blue color and we run server by command :- "npm run dev";
+   (1) "server": "cd server && npm run dev",
+   (2) "dev": "concurrently -n \"client,server\" -c \"bgBlue,bgYellow\" \"npm start\" \"npm run server\""
+
+**************************************************************************************************************************************************
+
+*** HOW TO ADD REACT-ICON LIKE (arrow sign use in button ) -> go to the "https://react-icons.github.io/react-icons" and copy&paste name of icon;
+    ex:-     install react-icon then :- 
+                                    import {FaArrowRight} from "react-icons/fa"    
+                                             <p>Become an Instructor</p>
+                                                <FaArrowRight />
+   output :- Become an Instructor->
+
+**************************************************************************************************************************************************
+
+*** group in Tailwind CSS :-  Put group in the parent element and group-hover: in all those child elements where we want the style on hover
+                               so when we hover on any space under parent then all child which contain group-hover: get styled
+
+   ex :-                   <div className='group text-xl'>
+                              <strong className='group-hover:text-red-500'>Hover on me </strong>
+                              <strong className='group-hover:text-green-500'>the texts will be </strong>
+                              <strong className='group-hover:text-blue-500'>of different colors</strong>
+                           </div>
+   
+   output :- Hover on me the texts will be of different colors
+   so when we hover on any text then all text get styled means (Hover on me) get styled with red color and (the texts will be) get styled
+   with green color and (of different colors) get styled with blue color;
+
+**************************************************************************************************************************************************
+
+
