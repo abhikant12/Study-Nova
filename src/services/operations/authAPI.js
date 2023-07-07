@@ -1,10 +1,24 @@
 import { toast } from "react-hot-toast"
-
 import { setLoading, setToken } from "../../slices/authSlice"
 import { resetCart } from "../../slices/cartSlice"
 import { setUser } from "../../slices/profileSlice"
 import { apiConnector } from "../apiconnector"
 import { endpoints } from "../apis"
+
+
+/*
+ const response = await apiConnector("POST", LOGIN_API, {
+        email,
+        password,
+      })
+           here "POST" Is request and LOGIN_API is api and input me (emali , password) hai so basically we are making
+           a request("POST") to the API("LOGIN_API") and passing input (emali , password)
+ 
+*/
+
+  
+
+
 
 const {
   SENDOTP_API,

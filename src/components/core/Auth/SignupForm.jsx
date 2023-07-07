@@ -40,7 +40,7 @@ function SignupForm() {
   // Handle Form Submission
   function handleOnSubmit(e){
     e.preventDefault();
-    if(password != confirmPassword) {toast.error("Passwords do not match");  return ; }
+    if(password !== confirmPassword) {toast.error("Passwords do not match");  return ; }
     const signupData = { ...formData , accountType};
     dispatch(setSignupData(signupData))                                    // Setting signup data to state To be used after otp verification
     dispatch(sendOtp(formData.email, navigate))                           // Send OTP to user for verification
@@ -77,12 +77,12 @@ function SignupForm() {
 
         <div className="flex gap-x-4">
 
-          <label>
+          <label>   {/* First Name */}
               <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5"> First Name <sup className="text-pink-200">*</sup> </p>
               <input required type="text"  value = {firstName} onChange={handleOnChange} placeholder="Enter First Name" name="firstName"  style={{boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)", }}  className='bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px]' />          
           </label>
 
-          <label>
+          <label>    {/* Last Name */}
               <p className='text-[0.875rem] text-richblack-5 mb-1 leading-[1.375rem]'> Last Name <sup className='text-pink-200'>*</sup></p>
               <input required type="text"  value = {lastName} onChange={handleOnChange} placeholder="Enter Last Name" name="lastName" style={{boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)", }} className='bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px]' />
           </label>         
@@ -90,7 +90,7 @@ function SignupForm() {
         </div>
 
 
-        <label className='w-full'>
+        <label className='w-full'>      {/* Email */}
              <p className='text-[0.875rem] text-richblack-5 mb-1 leading-[1.375rem]'>Email Address<sup className='text-pink-200'>*</sup></p>
              <input required type="email"  value = {email} onChange={handleOnChange} placeholder="Enter Email Name" name="email" style={{boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)", }} className='bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px]' />
         </label>
@@ -100,7 +100,7 @@ function SignupForm() {
 
             <label className='relative'>
                 <p className='text-[0.875rem] text-richblack-5 mb-1 leading-[1.375rem]'>Create Password<sup className='text-pink-200'>*</sup></p>
-                <input  required  type= {showPassword ? ("text") : ("password")}  name="password"  onChange={handleOnChange}  value={password}  placeholder="Enter Password" style={{boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)", }}  className='bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px]' />
+                <input  required  type = {showPassword ? ("text") : ("password")}  name="password"  onChange={handleOnChange}  value={password}  placeholder="Enter Password" style={{boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)", }}  className='bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px]' />
             
                 <span  className='absolute right-3 top-[38px] cursor-pointer' onClick={() => setShowPassword((prev) => !prev)}>
                     {showPassword ? (<AiOutlineEyeInvisible fontSize={24} fill='#AFB2BF'/>) : (<AiOutlineEye fontSize={24} fill='#AFB2BF'/>)}
@@ -109,9 +109,9 @@ function SignupForm() {
 
             <label className='relative'>
                 <p className='text-[0.875rem] text-richblack-5 mb-1 leading-[1.375rem]'>Confirm Password<sup className='text-pink-200'>*</sup></p>
-                <input  required  type= {showConfirmPassword ? ("text") : ("password")}  name="confirmPassword"  onChange={handleOnChange}  value={confirmPassword}  placeholder="Confirm Password" style={{boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)", }} className='bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px]' />
+                <input  required  type = {showConfirmPassword ? ("text") : ("password")}  name="confirmPassword"  onChange={handleOnChange}  value={confirmPassword}  placeholder="Confirm Password" style={{boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)", }} className='bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px]' />
             
-                <span  className='absolute right-3 top-[38px] cursor-pointer' onClick={() => setShowPassword((prev) => !prev)}>
+                <span  className='absolute right-3 top-[38px] cursor-pointer' onClick={() => setShowConfirmPassword((prev) => !prev)}>
                     {showConfirmPassword ? (<AiOutlineEyeInvisible fontSize={24} fill='#AFB2BF'/>) : (<AiOutlineEye fontSize={24} fill='#AFB2BF'/>)}
                 </span>
             </label>

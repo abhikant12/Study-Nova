@@ -1,5 +1,15 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL
 
+/*
+ apis is used to connect backend and frontend 
+
+ export const categories = {
+  CATEGORIES_API: BASE_URL + "/course/showAllCategories",
+}
+
+here "/course/showAllCategories" is url of showAllCategories in backend and we
+*/
+
 // AUTH ENDPOINTS
 export const endpoints = {
   SENDOTP_API: BASE_URL + "/auth/sendotp",
