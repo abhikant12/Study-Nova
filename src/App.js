@@ -10,8 +10,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import UpdatePassword from "./pages/UpdatePassword";
 import VerifyEmail from "./pages/VerifyEmail";
 import About from "./pages/About";
-
-
+import Contact from "./pages/Contact";
 
 
 
@@ -30,6 +29,7 @@ function App() {
         <Route path="verify-email" element = { <OpenRoute> <VerifyEmail /> </OpenRoute> } />
         <Route path="update-password/:id" element = { <OpenRoute> <UpdatePassword /> </OpenRoute> } />
         <Route path="about" element = { <OpenRoute> <About /> </OpenRoute> } />
+        <Route path="/contact" element={<Contact />} />
          
       </Routes>
 
