@@ -39,6 +39,14 @@ const LearningGridArray = [
   },
 ];
 
+/*
+here there are total 8 card box in first 2 cardbox we write "World-Class Learning for" and a button (we use col-spac-2 to merge two column)
+(i === 0 && "xl:col-span-2) and we make (row 2 , col 1) empty and we had merger column1 & column2 so here to make (row 2 , col 1) empty
+we write (card.order === 3 && "xl:col-start-2"}) means when card 3 appear then it goes to column 2 , card 3 appear in (row2 , col1) and 
+(row2 , col1) and (row2 , col2) are merge into single box so card 3 placed into second part(row2 , col2) and first part is empty;
+and we dicide color of each box by it  indexing (even or odd);
+
+*/
 
 const LearningGrid = () => {
   return (

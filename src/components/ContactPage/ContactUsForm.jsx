@@ -9,10 +9,10 @@ import { contactusEndpoint } from "../../services/apis"
 const ContactUsForm = () => {
 
   const [loading, setLoading] = useState(false)
-  const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful }, } = useForm()
+  const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful }, } = useForm()              //  useform is used to collect data of input box in object form (read from internet) 
      
    
-  const submitContactForm = async (data) => {  
+  const submitContactForm = async (data) => {   
     try {
       setLoading(true)
       const res = await apiConnector( "POST",  contactusEndpoint.CONTACT_US_API, data  )
@@ -21,7 +21,7 @@ const ContactUsForm = () => {
       console.log("ERROR MESSAGE - ", error.message)
       setLoading(false)
     }
-  }
+  } 
 
   useEffect(() => {
     if(isSubmitSuccessful){

@@ -1,6 +1,6 @@
 const Section = require("../models/Section");
 const Course = require("../models/Course");
-
+const SubSection = require("../models/SubSection");
 
 
 //in course we create many section like chapter_1 , chapter_2 and in section we create many subsection like chapter_1 divided into five topic...
@@ -44,7 +44,7 @@ const createSection = async (req, res) => {
 
 const updateSection = async (req,res) => {
     try {
-        const {sectionName, sectionId} = req.body;                  //data input
+        const {sectionName, sectionId , courseId} = req.body;                  //data input
         if(!sectionName || !sectionId) {                           //data validation
             return res.status(400).json({
                 success:false,
@@ -54,8 +54,12 @@ const updateSection = async (req,res) => {
         
         const section = await Section.findByIdAndUpdate(sectionId, {sectionName}, {new:true});            //it find section that id is matched with sectionid and in that section {sectionName} is updated;
                                                                                                          // await Section.findByIdAndUpdate(sectionId, {sectionName}, {new:true}); agar hm itna bhi likhe to koi effect nhi padega;
-        return res.status(200).json({                              //return res
+       
+             const course = await Course.findById(courseId).populate({path:"courseContent" , populate:{path:"subSection"} , }).exec();
+       
+       return res.status(200).json({                                            //return res
             success:true,
+            data:course,
             message:'Section Updated Successfully',
         });
     }
@@ -68,27 +72,55 @@ const updateSection = async (req,res) => {
     }
 };
 
+ 
+// DELETE a section
+const deleteSection = async (req, res) => {
+	try {
 
-const deleteSection = async (req,res) => {
-    try {
-        const {sectionId, courseId} = req.body;                           //get ID - assuming that we are sending ID in params
-        await Section.findByIdAndDelete(sectionId);                       //use findByIdandDelete
-        
-        const course = await Course.findByIdAndUpdate(courseId, {Section}, {new:true});    //here there is no use of const course , its only store updated course;
-                                                                                           // if you also write without  "const course = " then it also work;
-        return res.status(200).json({                                        //return response
-            success:true,
-            message:"Section Deleted Successfully",
-        })
-    }
-    catch(error) {
-        return res.status(500).json({
-            success:false,
-            message:"Unable to delete Section, please try again",
-            error:error.message,
-        });
-    }
-}
+		const { sectionId, courseId }  = req.body;
+		await Course.findByIdAndUpdate(courseId, {                 
+			$pull: {
+				courseContent: sectionId,
+			}
+		})
+		const section = await Section.findById(sectionId);
+		console.log(sectionId, courseId);
+		if(!section) {
+			return res.status(404).json({
+				success:false,
+				message:"Section not Found",
+			})
+		}
+
+		//delete sub section
+		await SubSection.deleteMany({_id: {$in: section.subSection}});
+
+		await Section.findByIdAndDelete(sectionId);
+
+		//find the updated course and return 
+		const course = await Course.findById(courseId).populate({                               //here there is no use of const course , its only store updated course;
+			path:"courseContent",                                                               // if you also write without  "const course = " then it also work;
+			populate: {
+				path: "subSection"
+			}
+		})
+		.exec();
+
+		res.status(200).json({
+			success:true,
+			message:"Section deleted",
+			data:course
+		});
+	} catch (error) {
+		console.error("Error deleting section:", error);
+		res.status(500).json({
+			success: false,
+			message: "Internal server error",
+		});
+	}
+};   
+
+ 
 
 module.exports = {createSection , updateSection , deleteSection};
 

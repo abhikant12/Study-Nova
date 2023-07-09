@@ -60,19 +60,19 @@ const resetPassword = async (req, res) => {
             });
         }
 
-        if(userDetails.resetPasswordExpires < Date.now()){                 //token time check 
+        if(!(userDetails.resetPasswordExpires > Date.now())){                 //token time check 
                 return res.json({
                     success:false,
                     message:'Token is expired, please regenerate your token',
                 });
         }
          
-        const hashedPassword = await bcrypt.hash(password, 10);           //hash password
+        const encryptedPassword = await bcrypt.hash(password, 10);           //hash password
 
         //password update IN DB;
         await User.findOneAndUpdate(
             {token:token},
-            {password:hashedPassword},
+            {password:encryptedPassword},
             {new:true},
         );
        

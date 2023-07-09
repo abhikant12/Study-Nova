@@ -6,9 +6,9 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
  export const categories = {
   CATEGORIES_API: BASE_URL + "/course/showAllCategories",
 }
-
 here "/course/showAllCategories" is url of showAllCategories in backend and we
 */
+
 
 // AUTH ENDPOINTS
 export const endpoints = {
@@ -62,7 +62,7 @@ export const ratingsEndpoints = {
 // CATAGORIES API
 export const categories = {
   CATEGORIES_API: BASE_URL + "/course/showAllCategories",
-}
+} 
 
 // CATALOG PAGE DATA
 export const catalogData = {

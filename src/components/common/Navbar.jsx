@@ -131,7 +131,7 @@ function Navbar() {
                                )
            }
 
-          { token !== null && <ProfileDropdown />}
+          { token !== null && <ProfileDropdown />}               {/* added profile dropdown if token is not equal to null means user is present*/}
 
         </div>
 

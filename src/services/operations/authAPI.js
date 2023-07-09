@@ -177,7 +177,6 @@ export function resetPassword(password, confirmPassword, token) {
 
       console.log("RESET Password RESPONSE ... ", response);
 
-
       if(!response.data.success) {
         throw new Error(response.data.message);
       }

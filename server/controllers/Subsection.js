@@ -36,7 +36,7 @@ const createSubSection = async (req, res) => {
             return res.status(200).json({                                          //return response
                 succcess:true,
                 message:'Sub Section Created Successfully',
-                updatedSection,
+                data: updatedSection,
             });
     }
     catch(error) {
@@ -76,11 +76,14 @@ const updateSubSection = async (req, res) => {
         subSection.videoUrl = uploadDetails.secure_url
         subSection.timeDuration = `${uploadDetails.duration}`
       }
-  
+
       await subSection.save()
+
+      const updatedSection = await Section.findById(sectionId).populate("subSection")
   
       return res.json({
         success: true,
+        data: updatedSection ,
         message: "Section updated successfully",
       })
     } catch (error) {
@@ -112,8 +115,11 @@ const deleteSubSection = async (req, res) => {
           .json({ success: false, message: "SubSection not found" })
       }
   
+       const updatedSection = await Section.findById(sectionId).populate("subSection");
+
       return res.json({
         success: true,
+        data: updatedSection ,
         message: "SubSection deleted successfully",
       })
     } catch (error) {
