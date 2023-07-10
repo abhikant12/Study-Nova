@@ -22,6 +22,7 @@ import { ACCOUNT_TYPE } from "./utils/constants";
 import AddCourse from "./components/core/Dashboard/AddCourse";
 import EditCourse from "./components/core/Dashboard/EditCourse";
 import MyCourses from "./components/core/Dashboard/MyCourses";
+import Catalog from "./pages/Catalog";
 
 
 
@@ -42,6 +43,8 @@ function App() {
       <Routes>
         
         <Route path="/" element={<Home/>} />
+        <Route path="catalog/:catalogName" element={<Catalog/>} />
+        {/* <Route path="courses/:courseId" element={<CourseDetails/>} /> */}
         <Route path="signup" element = { <OpenRoute> <Signup /> </OpenRoute> } />
         <Route path="login" element = { <OpenRoute> <Login /> </OpenRoute> } />
         <Route path="forgot-password" element = { <OpenRoute> <ForgotPassword /> </OpenRoute> } />
@@ -67,6 +70,7 @@ function App() {
            {
         user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
           <>
+          {/* <Route path="dashboard/instructor" element={<Instructor />} /> */}
           <Route path="dashboard/add-course" element={<AddCourse />} />
           <Route path="dashboard/edit-course/:courseId" element={<EditCourse />} />
           <Route path="dashboard/my-courses" element={<MyCourses />} />

@@ -1,14 +1,14 @@
-import React from 'react'
+ import React from 'react'
 
-import {Swiper, SwiperSlide} from "swiper/react"
-import "swiper/css"
-import "swiper/css/free-mode"
-import "swiper/css/pagination"
+import {Swiper, SwiperSlide} from "swiper/react"                           //this is the slider"swiper" which contain many type of slider
+import "swiper/css"                                                        //only we have to insert data into slider and styling or position 
+// import "swiper/css/free-mode"
+// import "swiper/css/pagination"
 import { Autoplay,FreeMode,Navigation, Pagination}  from 'swiper'
 
 import Course_Card from './Course_Card'
 
-const CourseSlider = ({Courses}) => {
+const CourseSlider = ({Courses}) => { 
   return (
     <>
       {Courses?.length ? (
@@ -16,7 +16,7 @@ const CourseSlider = ({Courses}) => {
           slidesPerView={1}
           spaceBetween={25}
           loop={true}
-          modules={[FreeMode, Pagination]}
+      //    modules={[FreeMode, Pagination]}
           breakpoints={{
             1024: {
               slidesPerView: 3,
