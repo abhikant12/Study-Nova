@@ -111,7 +111,7 @@ export default function SubSectionModal({
     formData.append("video", data.lectureVideo)
     setLoading(true)
     const result = await createSubSection(formData, token)
-    if(result) {
+    if (result) {
       // update the structure of course
       const updatedCourseContent = course.courseContent.map((section) =>
         section._id === modalData ? result : section

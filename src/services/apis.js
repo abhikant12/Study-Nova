@@ -9,7 +9,6 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
 here "/course/showAllCategories" is url of showAllCategories in backend and we
 */
 
-
 // AUTH ENDPOINTS
 export const endpoints = {
   SENDOTP_API: BASE_URL + "/auth/sendotp",

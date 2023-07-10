@@ -36,6 +36,7 @@ const coursesSchema = new mongoose.Schema({
 	},
 	category: {
 		type: mongoose.Schema.Types.ObjectId,
+		// required: true,
 		ref: "Category",
 	},
 	studentsEnrolled: [
@@ -51,6 +52,10 @@ const coursesSchema = new mongoose.Schema({
 	status: {
 		type: String,
 		enum: ["Draft", "Published"],
+	},
+	createdAt: {
+		type:Date,
+		default:Date.now
 	},
 });
 

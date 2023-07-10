@@ -6,13 +6,15 @@ const router = express.Router()
 //Route for :-  createRating , getAverageRating , getReviews
 
  
-const {createCourse,  getAllCourses,  getCourseDetails, } = require("../controllers/Course")               // Course Controllers Import
+const {createCourse,  getAllCourses,  getCourseDetails,  getFullCourseDetails, editCourse, getInstructorCourses,  deleteCourse,} = require("../controllers/Course")               // Course Controllers Import
 const {showAllCategories, createCategory, categoryPageDetails, } = require("../controllers/Category")      // Categories Controllers Import
 const {createSection,  updateSection,  deleteSection, } = require("../controllers/Section")                // Sections Controllers Import
 const {createSubSection, updateSubSection,  deleteSubSection, } = require("../controllers/Subsection")     // Sub-Sections Controllers Import
 const {createRating,  getAverageRating, getAllRating, } = require("../controllers/RatingAndReview")        // Rating Controllers Import
 const { auth, isInstructor, isStudent, isAdmin } = require("../middlewares/auth")                          // Importing Middlewares
-
+const {
+    updateCourseProgress
+  } = require("../controllers/courseProgress");
 
 
 // ********************************************************************************************************
@@ -27,6 +29,17 @@ router.post("/deleteSubSection", auth, isInstructor, deleteSubSection)
 router.post("/addSubSection", auth, isInstructor, createSubSection)
 router.get("/getAllCourses", getAllCourses)                                               // Get all Registered Courses
 router.post("/getCourseDetails", getCourseDetails)                                        // Get Details for a Specific Courses
+
+router.post("/getFullCourseDetails", auth, getFullCourseDetails)
+// Edit Course routes
+router.post("/editCourse", auth, isInstructor, editCourse)
+// Get all Courses Under a Specific Instructor
+router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
+// Delete a Course
+router.delete("/deleteCourse", deleteCourse)
+
+router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress);
+
 
 
 // ********************************************************************************************************
