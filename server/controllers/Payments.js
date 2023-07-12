@@ -16,16 +16,14 @@ exports.capturePayment = async(req, res) => {
     const {courses} = req.body;
     const userId = req.user.id;
 
-    if(courses.length === 0) {
+    if(courses.length === 0){
         return res.json({success:false, message:"Please provide Course Id"});
     }
-
     let totalAmount = 0;
 
     for(const course_id of courses) {
         let course;
         try{
-           
             course = await Course.findById(course_id);
             if(!course) {
                 return res.status(200).json({success:false, message:"Could not find the course"});
@@ -38,7 +36,7 @@ exports.capturePayment = async(req, res) => {
 
             totalAmount += course.price;
         }
-        catch(error) {
+        catch(error){
             console.log(error);
             return res.status(500).json({success:false, message:error.message});
         }
@@ -61,7 +59,6 @@ exports.capturePayment = async(req, res) => {
         console.log(error);
         return res.status(500).json({success:false, mesage:"Could not Initiate Order"});
     }
-
 }
 
 
@@ -73,10 +70,8 @@ exports.verifyPayment = async(req, res) => {
     const courses = req.body?.courses;
     const userId = req.user.id;
 
-    if(!razorpay_order_id ||
-        !razorpay_payment_id ||
-        !razorpay_signature || !courses || !userId) {
-            return res.status(200).json({success:false, message:"Payment Failed"});
+    if(!razorpay_order_id || !razorpay_payment_id || !razorpay_signature || !courses || !userId) {
+           return res.status(200).json({success:false, message:"Payment Failed"});   
     }
 
     let body = razorpay_order_id + "|" + razorpay_payment_id;
@@ -86,13 +81,10 @@ exports.verifyPayment = async(req, res) => {
         .digest("hex");
 
         if(expectedSignature === razorpay_signature) {
-            //enroll karwao student ko
-            await enrollStudents(courses, userId, res);
-            //return res
-            return res.status(200).json({success:true, message:"Payment Verified"});
+            await enrollStudents(courses, userId, res);                   //enroll karwao student ko
+            return res.status(200).json({success:true, message:"Payment Verified"});    //return res
         }
         return res.status(200).json({success:"false", message:"Payment Failed"});
-
 }
 
 
@@ -103,18 +95,13 @@ const enrollStudents = async(courses, userId, res) => {
     }
 
     for(const courseId of courses) {
-        try{
-            //find the course and enroll the student in it
-        const enrolledCourse = await Course.findOneAndUpdate(
-            {_id:courseId},
-            {$push:{studentsEnrolled:userId}},
-            {new:true},
-        )
-
-        if(!enrolledCourse) {
+        try{                                            //find the course and enroll the student in it
+        const enrolledCourse = await Course.findOneAndUpdate({_id:courseId}, {$push:{studentsEnrolled:userId}}, {new:true},)            
+        
+        if(!enrolledCourse){
             return res.status(500).json({success:false,message:"Course not Found"});
         }
-
+        // created courseProgress for enrolled Courses in DB;
         const courseProgress = await CourseProgress.create({
             courseID:courseId,
             userId:userId,
@@ -122,27 +109,18 @@ const enrollStudents = async(courses, userId, res) => {
         })
 
         //find the student and add the course to their list of enrolledCOurses
-        const enrolledStudent = await User.findByIdAndUpdate(userId,
-            {$push:{
-                courses: courseId,
-                courseProgress: courseProgress._id,
-            }},{new:true})
+        const enrolledStudent = await User.findByIdAndUpdate(userId,  {$push:{ courses: courseId,  courseProgress: courseProgress._id, }},{new:true})
             
-        ///bachhe ko mail send kardo
-        const emailResponse = await mailSender(
-            enrollStudents.email,
-            `Successfully Enrolled into ${enrolledCourse.courseName}`,
-            courseEnrollmentEmail(enrolledCourse.courseName, `${enrolledStudent.firstName}`)
-        )    
-        //console.log("Email Sent Successfully", emailResponse.response);
-        }
+        ///Send mail to the Student;
+        const emailResponse = await mailSender( enrollStudents.email, `Successfully Enrolled into ${enrolledCourse.courseName}`,  courseEnrollmentEmail(enrolledCourse.courseName, `${enrolledStudent.firstName}`)) 
+    }
         catch(error) {
             console.log(error);
             return res.status(500).json({success:false, message:error.message});
         }
     }
-
 }
+
 
 exports.sendPaymentSuccessEmail = async(req, res) => {
     const {orderId, paymentId, amount} = req.body;

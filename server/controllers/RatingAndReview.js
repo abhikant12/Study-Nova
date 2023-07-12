@@ -8,20 +8,16 @@ const createRating = async (req, res) => {
     try{
         const userId = req.user.id;                                                   //get user id
         const {rating, review, courseId} = req.body;                                 //fetchdata from req body
-        const courseDetails = await Course.findOne(                                 //check if user is enrolled or not
-                                    {_id:courseId,
-                                    studentsEnrolled: {$elemMatch: {$eq: userId} },
-                                });
+        const courseDetails = await Course.findOne({_id:courseId, studentsEnrolled:{$elemMatch: {$eq: userId} },  });    //check if user is enrolled or not
+                                    
         if(!courseDetails){
             return res.status(404).json({
                 success:false,
                 message:'Student is not enrolled in the course',
             });
         }
-        const alreadyReviewed = await RatingAndReview.findOne({                     //check if user already reviewed the course
-                                                user:userId,
-                                                course:courseId,
-                                            });
+        const alreadyReviewed = await RatingAndReview.findOne({user:userId,  course:courseId,});       //check if user already reviewed the course                                
+                                             
         if(alreadyReviewed) {
                     return res.status(403).json({
                         success:false,
@@ -97,8 +93,7 @@ const getAverageRating = async (req, res) => {
 //getAllRatingAndReviews
 const getAllRating = async (req, res) => {
     try{
-            const allReviews = await RatingAndReview.find({})
-                                    .sort({rating: "desc"})
+            const allReviews = await RatingAndReview.find({}).sort({rating: "desc"})  
                                     .populate({
                                         path:"user",
                                         select:"firstName lastName email image",
@@ -108,6 +103,7 @@ const getAllRating = async (req, res) => {
                                         select: "courseName",
                                     })
                                     .exec();
+
             return res.status(200).json({
                 success:true,
                 message:"All reviews fetched successfully",

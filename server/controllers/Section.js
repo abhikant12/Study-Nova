@@ -8,23 +8,14 @@ const createSection = async (req, res) => {
     try{
         const {sectionName, courseId} = req.body;                               //data fetch
         if(!sectionName || !courseId) {                                          //data validation
-            return res.status(400).json({
-                success:false,
-                message:'Missing Properties',
-            });
+            return res.status(400).json({ success:false,  message:'Missing Properties', });
         }
 
         //create section in DB;
         const newSection = await Section.create({sectionName});
 
         //update course with section ObjectID
-        const updatedCourseDetails = await Course.findByIdAndUpdate(
-                                            courseId,
-                                            {
-                                                $push:{ courseContent:newSection._id, } 
-                                            },
-                                            {new:true},
-                                        ).populate({path: "courseContent",populate: {path: "subSection",},}).exec();
+        const updatedCourseDetails = await Course.findByIdAndUpdate(courseId,  {$push:{ courseContent:newSection._id, }}, {new:true},).populate({path: "courseContent",populate: {path: "subSection",},}).exec();                     
        
         return res.status(200).json({                              //return response
             success:true,
@@ -45,17 +36,13 @@ const createSection = async (req, res) => {
 const updateSection = async (req,res) => {
     try {
         const {sectionName, sectionId , courseId} = req.body;                  //data input
-        if(!sectionName || !sectionId) {                           //data validation
-            return res.status(400).json({
-                success:false,
-                message:'Missing Properties',
-            });
+        if(!sectionName || !sectionId) {                                      //data validation
+            return res.status(400).json({success:false,  message:'Missing Properties', });
         }
         
         const section = await Section.findByIdAndUpdate(sectionId, {sectionName}, {new:true});            //it find section that id is matched with sectionid and in that section {sectionName} is updated;
                                                                                                          // await Section.findByIdAndUpdate(sectionId, {sectionName}, {new:true}); agar hm itna bhi likhe to koi effect nhi padega;
-       
-             const course = await Course.findById(courseId).populate({path:"courseContent" , populate:{path:"subSection"} , }).exec();
+        const course = await Course.findById(courseId).populate({path:"courseContent" , populate:{path:"subSection"} , }).exec();
        
        return res.status(200).json({                                            //return res
             success:true,
@@ -76,20 +63,12 @@ const updateSection = async (req,res) => {
 // DELETE a section
 const deleteSection = async (req, res) => {
 	try {
-
 		const { sectionId, courseId }  = req.body;
-		await Course.findByIdAndUpdate(courseId, {                 
-			$pull: {
-				courseContent: sectionId,
-			}
-		})
+		await Course.findByIdAndUpdate(courseId, {$pull: {courseContent: sectionId,}})                 
+
 		const section = await Section.findById(sectionId);
-		console.log(sectionId, courseId);
 		if(!section) {
-			return res.status(404).json({
-				success:false,
-				message:"Section not Found",
-			})
+			return res.status(404).json({success:false, message:"Section not Found",})	 
 		}
 
 		//delete sub section
@@ -111,8 +90,8 @@ const deleteSection = async (req, res) => {
 			message:"Section deleted",
 			data:course
 		});
-	} catch (error) {
-		console.error("Error deleting section:", error);
+	} 
+    catch (error) {
 		res.status(500).json({
 			success: false,
 			message: "Internal server error",

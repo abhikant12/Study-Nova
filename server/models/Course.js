@@ -2,8 +2,11 @@ const mongoose = require("mongoose");
 
 // Define the Courses schema
 const coursesSchema = new mongoose.Schema({
+
 	courseName: { type: String },
+
 	courseDescription: { type: String },
+
 	instructor: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
@@ -36,7 +39,6 @@ const coursesSchema = new mongoose.Schema({
 	},
 	category: {
 		type: mongoose.Schema.Types.ObjectId,
-		// required: true,
 		ref: "Category",
 	},
 	studentsEnrolled: [
@@ -67,6 +69,4 @@ module.exports = mongoose.model("Course", coursesSchema);
 /*
 To set type as an ObjectId (so you may reference something to this), you may do like :- type: mongoose.Schema.Types.ObjectId
 like we do this type in studentsEnrolled So we store many studentsEnrolled_id in this.;
-
-
 */

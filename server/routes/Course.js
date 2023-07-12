@@ -4,6 +4,7 @@ const router = express.Router()
 //Route for :- createCourse , Section(add, update, delete) , Subsection(add, update, delete), getAllCourses, getCoursesDetails;
 //Route for :- createCategory , showAllCategories , getCategoryPageDetails
 //Route for :-  createRating , getAverageRating , getReviews
+//Route for :- updateCourseProgress
 
  
 const {createCourse,  getAllCourses,  getCourseDetails,  getFullCourseDetails, editCourse, getInstructorCourses,  deleteCourse,} = require("../controllers/Course")               // Course Controllers Import
@@ -12,9 +13,7 @@ const {createSection,  updateSection,  deleteSection, } = require("../controller
 const {createSubSection, updateSubSection,  deleteSubSection, } = require("../controllers/Subsection")     // Sub-Sections Controllers Import
 const {createRating,  getAverageRating, getAllRating, } = require("../controllers/RatingAndReview")        // Rating Controllers Import
 const { auth, isInstructor, isStudent, isAdmin } = require("../middlewares/auth")                          // Importing Middlewares
-const {
-    updateCourseProgress
-  } = require("../controllers/courseProgress");
+const {updateCourseProgress } = require("../controllers/courseProgress");
 
 
 // ********************************************************************************************************
@@ -31,13 +30,9 @@ router.get("/getAllCourses", getAllCourses)                                     
 router.post("/getCourseDetails", getCourseDetails)                                        // Get Details for a Specific Courses
 
 router.post("/getFullCourseDetails", auth, getFullCourseDetails)
-// Edit Course routes
-router.post("/editCourse", auth, isInstructor, editCourse)
-// Get all Courses Under a Specific Instructor
-router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
-// Delete a Course
-router.delete("/deleteCourse", deleteCourse)
-
+router.post("/editCourse", auth, isInstructor, editCourse)                              // Edit Course routes
+router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)           // Get all Courses Under a Specific Instructor
+router.delete("/deleteCourse", deleteCourse)                                            // Delete a Course
 router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress);
 
 
