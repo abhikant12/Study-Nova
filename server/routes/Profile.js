@@ -5,8 +5,8 @@ const router = express.Router()
 // Routes for deleteprofile , updateprofile ,getuserdetails , getEnrolledCourse , updateDisplayPicture;
 
 
-const { auth } = require("../middlewares/auth")
-const {deleteAccount, updateProfile, getAllUserDetails, updateDisplayPicture,  getEnrolledCourses,} = require("../controllers/Profile")
+const { auth, isInstructor } = require("../middlewares/auth")
+const {deleteAccount, updateProfile, getAllUserDetails, updateDisplayPicture,  getEnrolledCourses, instructorDashboard} = require("../controllers/Profile")
    
     
 // ********************************************************************************************************
@@ -17,7 +17,7 @@ router.put("/updateProfile", auth, updateProfile)
 router.get("/getUserDetails", auth, getAllUserDetails)
 router.get("/getEnrolledCourses", auth, getEnrolledCourses)                  // Get Enrolled Courses
 router.put("/updateDisplayPicture", auth, updateDisplayPicture)
-
+router.get("/instructorDashboard", auth, isInstructor, instructorDashboard)
 
 
 module.exports = router

@@ -11,6 +11,7 @@ import HighlightText from "../components/core/HomePage/HighlightText"
 import InstructorSection from "../components/core/HomePage/InstructorSection"
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection"
 import TimelineSection from "../components/core/HomePage/TimelineSection"
+import ReviewSlider from "../components/common/ReviewSlider"
 
 
 //divided Home page into 4 section :- { first (bg :- blue) , second(bg :- white) , third(bg :- blue) , fourth(footer) }
@@ -128,6 +129,7 @@ const Home = () => {
             <InstructorSection />
             <h1 className = "text-center text-4xl font-semibold mt-8"> review from Other Learners </h1>
             {/* Review Slider here */}
+            <ReviewSlider/>
 
       </div>
 

@@ -15,8 +15,8 @@ const ContactUsForm = () => {
   const submitContactForm = async (data) => {   
     try {
       setLoading(true)
-      const res = await apiConnector( "POST",  contactusEndpoint.CONTACT_US_API, data  )
-      setLoading(false)
+      const res = await apiConnector( "POST",  contactusEndpoint.CONTACT_US_API, data);
+      setLoading(false);
     } catch (error) {
       console.log("ERROR MESSAGE - ", error.message)
       setLoading(false)
