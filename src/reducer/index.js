@@ -11,7 +11,6 @@ here there are multiple reducer like authReducer , profileReducer , cartReducer 
 in "rootReducer"  and  this "rootReducer" is added into "store" in index.js now we can access all reducer using "store"
 */
 
-
 const rootReducer  = combineReducers({                  // combining all reducer;
     auth: authReducer,
     profile:profileReducer,

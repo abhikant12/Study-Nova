@@ -5,3 +5,6 @@ export const formattedDate = (date) => {
       year: "numeric",
     })
   }
+
+
+  

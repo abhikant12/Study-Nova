@@ -6,8 +6,18 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
  export const categories = {
   CATEGORIES_API: BASE_URL + "/course/showAllCategories",
 }
-here "/course/showAllCategories" is url of showAllCategories in backend and we
+here "/course/showAllCategories" is url of showAllCategories in backend and we get,post,delete data from that url and used in fronted.
+
+ex :-      export const contactusEndpoint = {
+                CONTACT_US_API: BASE_URL + "/reach/contact",
+              }                          // this api is used to connect contactUsForm (frontend (component->contactPage)) to ContactUs (backend (controllers->contactUs));
+here we are actually doing that (in BACKEND) :- first make  "route" of function that in controllers (router.post("/contact", contactUsController) in route->contact) and then 
+make final route of file in index.js in backend :- app.use("/api/v1/reach", contactUsRoute) and const contactUsRoute = require("./routes/Contact");
+So our final route is "/api/v1/reach" to reach the file name "contact" in route and then attach the route of function to it like :-"/api/v1/reach/contact"
+
+So base url is :-  http://localhost:4000/api/v1 + "/reach/contact",  is API which is used in frontend with the help of apiConnector;
 */
+
 
 // AUTH ENDPOINTS
 export const endpoints = {

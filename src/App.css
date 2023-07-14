@@ -43,7 +43,7 @@ html, body {
     transform: matrix(1, 0, -0.03, 1, 0, 0);
   }
 
-  /* https://10015.io/tools/css-loader-generator */
+/*https://10015.io/tools/css-loader-generator*/
 .spinner {
   width: 56px;
   height: 56px;

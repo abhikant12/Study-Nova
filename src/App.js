@@ -1,9 +1,7 @@
 import { useEffect } from "react"
 import "./App.css"
-// Redux
-import { useDispatch, useSelector } from "react-redux"
-// React Router
-import { Route, Routes, useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"                     // Redux
+import { Route, Routes, useNavigate } from "react-router-dom"              // React Router
 
 // Components
 import Navbar from "./components/common/Navbar"
@@ -43,12 +41,11 @@ function App() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.profile)
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
+  useEffect(() => {                                                    // it store data of user in localstroage and when we open browser then that user logined;                 
+    if(localStorage.getItem("token")){
       const token = JSON.parse(localStorage.getItem("token"))
       dispatch(getUserDetails(token, navigate))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   

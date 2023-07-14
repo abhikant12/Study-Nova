@@ -18,7 +18,7 @@ const cartSlice = createSlice({
       const course = action.payload
       const index = state.cart.findIndex((item) => item._id === course._id)
 
-      if (index >= 0){                                                  // If the course is already in the cart, do not modify the quantity
+      if(index >= 0){                                                  // If the course is already in the cart, do not modify the quantity
         toast.error("Course already in cart")
         return
       }

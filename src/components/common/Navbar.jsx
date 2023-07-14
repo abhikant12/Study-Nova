@@ -23,9 +23,7 @@ function Navbar() {
   const [subLinks, setSubLinks] = useState([])
   const [loading, setLoading] = useState(false)
 
-
   useEffect(() => {
-
     ;(async () => {
       setLoading(true)
       try {
@@ -36,9 +34,7 @@ function Navbar() {
       }
       setLoading(false)
     })()
-
   }, [])
-
 
   function matchRoute(route){                                   // if route is matched with (current route) then return true and color of text turn yellow otherwise white;
     return matchPath({ path: route } , location.pathname)

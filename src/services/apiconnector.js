@@ -11,3 +11,6 @@ export const apiConnector = (method, url, bodyData, headers, params) => {
         params: params ? params : null,
     });
 }
+
+
+// this apiConnector is used to connect (backend API to fronted);

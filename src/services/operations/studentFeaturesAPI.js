@@ -8,6 +8,7 @@ import { resetCart } from "../../slices/cartSlice";
 
 const {COURSE_PAYMENT_API, COURSE_VERIFY_API, SEND_PAYMENT_SUCCESS_EMAIL_API} = studentEndpoints;
 
+
 function loadScript(src) {
     return new Promise((resolve) => {
         const script = document.createElement("script");
@@ -36,16 +37,13 @@ export async function buyCourse(token, courses, userDetails, navigate, dispatch)
         }
 
         //initiate the order
-        const orderResponse = await apiConnector("POST", COURSE_PAYMENT_API, 
-                                {courses},
-                                {
-                                    Authorization: `Bearer ${token}`,
-                                })
-
-        if(!orderResponse.data.success) {
+        const orderResponse = await apiConnector("POST", COURSE_PAYMENT_API,   {courses}, {Authorization: `Bearer ${token}`, })
+                                
+        if(!orderResponse.data.success){
             throw new Error(orderResponse.data.message);
         }
         console.log("PRINTING orderResponse", orderResponse);
+
         //options
         const options = {
             key: process.env.RAZORPAY_KEY,
@@ -82,6 +80,7 @@ export async function buyCourse(token, courses, userDetails, navigate, dispatch)
     toast.dismiss(toastId);
 }
 
+
 async function sendPaymentSuccessEmail(response, amount, token) {
     try{
         await apiConnector("POST", SEND_PAYMENT_SUCCESS_EMAIL_API, {
@@ -97,14 +96,13 @@ async function sendPaymentSuccessEmail(response, amount, token) {
     }
 }
 
+
 //verify payment
 async function verifyPayment(bodyData, token, navigate, dispatch) {
     const toastId = toast.loading("Verifying Payment....");
     dispatch(setPaymentLoading(true));
     try{
-        const response  = await apiConnector("POST", COURSE_VERIFY_API, bodyData, {
-            Authorization:`Bearer ${token}`,
-        })
+        const response  = await apiConnector("POST", COURSE_VERIFY_API, bodyData, { Authorization:`Bearer ${token}`,})
 
         if(!response.data.success) {
             throw new Error(response.data.message);

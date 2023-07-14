@@ -5,13 +5,13 @@ import { Link } from "react-router-dom"
 import { getPasswordResetToken } from "../services/operations/authAPI"
 
 
+
 function ForgotPassword(){
 
   const [email, setEmail] = useState("")
   const [emailSent, setEmailSent] = useState(false)
   const dispatch = useDispatch()
   const { loading } = useSelector((state) => state.auth)
-
 
   const handleOnSubmit = (e) => {
     e.preventDefault()
@@ -60,5 +60,6 @@ function ForgotPassword(){
  
  
 )}
+
 
 export default ForgotPassword

@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import { resetPassword } from "../services/operations/authAPI"
 
 
+
 function UpdatePassword(){
 
   const navigate = useNavigate()
@@ -75,5 +76,6 @@ function UpdatePassword(){
     </div>
   
 )}
+
 
 export default UpdatePassword
