@@ -45,8 +45,7 @@ export const getAllCourses = async () => {
 
 
 export const fetchCourseDetails = async (courseId) => {
-  const toastId = toast.loading("Loading...")
-  //   dispatch(setLoading(true));
+  //const toastId = toast.loading("Loading...")
   let result = null
   try {
     const response = await apiConnector("POST", COURSE_DETAILS_API, {courseId,})
@@ -62,8 +61,7 @@ export const fetchCourseDetails = async (courseId) => {
     result = error.response.data
     // toast.error(error.response.data.message);
   }
-  toast.dismiss(toastId)
-  //   dispatch(setLoading(false));
+ // toast.dismiss(toastId)
   return result
 }
 
@@ -275,7 +273,7 @@ export const deleteSubSection = async (data, token) => {
 // fetching all courses under a specific instructor
 export const fetchInstructorCourses = async (token) => {
   let result = []
-  const toastId = toast.loading("Loading...")
+ // const toastId = toast.loading("Loading...")
   try {
     const response = await apiConnector( "GET",  GET_ALL_INSTRUCTOR_COURSES_API, null, {Authorization: `Bearer ${token}`,} )
     console.log("INSTRUCTOR COURSES API RESPONSE............", response)
@@ -289,7 +287,7 @@ export const fetchInstructorCourses = async (token) => {
     console.log("INSTRUCTOR COURSES API ERROR............", error)
     toast.error(error.message)
   }
-  toast.dismiss(toastId)
+ // toast.dismiss(toastId)
   return result
 }
 
@@ -316,7 +314,7 @@ export const deleteCourse = async (data, token) => {
 
 // get full details of a course
 export const getFullDetailsOfCourse = async (courseId, token) => {
-  const toastId = toast.loading("Loading...")
+  //const toastId = toast.loading("Loading...")
   //   dispatch(setLoading(true));
   let result = null
   try {
@@ -333,7 +331,7 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
     result = error.response.data
     // toast.error(error.response.data.message);
   }
-  toast.dismiss(toastId)
+ // toast.dismiss(toastId)
   //   dispatch(setLoading(false));
   return result
 }

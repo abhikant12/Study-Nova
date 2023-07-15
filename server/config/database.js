@@ -5,7 +5,7 @@ require("dotenv").config();
 
 
 exports.connect = () => {
-    mongoose.connect( "mongodb://0.0.0.0:27017/Study_notion_db" , {
+    mongoose.connect( process.env.MONGODB_URL , {
         useNewUrlParser: true,
         useUnifiedTopology:true,
     })

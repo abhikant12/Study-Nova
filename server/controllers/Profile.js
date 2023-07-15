@@ -1,3 +1,4 @@
+const mongoose = require("mongoose")
 const Profile = require("../models/Profile")
 const CourseProgress = require("../models/CourseProgress")
 const Course = require("../models/Course")

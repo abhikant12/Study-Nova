@@ -47,7 +47,11 @@ export default function Instructor(){
         <p className="font-medium text-richblack-200"> Let's start something new  </p>
       </div>
 
-      {loading ? (<div className="spinner"></div>) : courses?.length > 0 ? (
+      {loading ? (
+          <div className="grid place-items-center mt-60 ">
+              <div className="spinner"></div>
+          </div>  
+       ) : courses?.length > 0 ? (
         <div>
           <div className="my-4 flex h-[450px] space-x-4">
 
