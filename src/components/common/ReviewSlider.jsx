@@ -7,7 +7,6 @@ import "swiper/css/free-mode"
 import "swiper/css/pagination"
 import "../../App.css"
 import { FaStar } from "react-icons/fa"                         // Icons
-import { Autoplay, FreeMode, Pagination } from "swiper"
 
 import { apiConnector } from "../../services/apiconnector"          // Get apiFunction and the endpoint
 import { ratingsEndpoints } from "../../services/apis"

@@ -23,7 +23,13 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
 pnpm-lock.yaml
 .env
 .vscode
+.editorconfig
+.nvmrc
+package-lock.json
+package.json
+
+
+

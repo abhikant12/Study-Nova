@@ -2,7 +2,6 @@
 
 import {Swiper, SwiperSlide} from "swiper/react"                           //this is the slider"swiper" which contain many type of slider
 import "swiper/css"                                                        //only we have to insert data into slider and styling or position 
-import { Autoplay,FreeMode,Navigation, Pagination}  from 'swiper'
 import Course_Card from './Course_Card'
 
 

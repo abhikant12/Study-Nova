@@ -8,14 +8,13 @@ import { contactusEndpoint } from "../../services/apis"
 
 const ContactUsForm = () => {
 
-  const [loading, setLoading] = useState(false)
   const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful }, } = useForm()              //  useform is used to collect data of input box in object form (read from internet) 
      
    
   const submitContactForm = async (data) => {   
     const toastId = toast.loading("Loading...")
     try{
-      const res = await apiConnector( "POST",  contactusEndpoint.CONTACT_US_API, data);
+          await apiConnector( "POST",  contactusEndpoint.CONTACT_US_API, data);
     } 
     catch (error) {
       console.log("ERROR MESSAGE - ", error.message)
