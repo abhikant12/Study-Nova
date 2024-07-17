@@ -1,13 +1,13 @@
-# StudyNotion   [```live```](https://studynova-abhikant.vercel.app/)
+# StudyNova   [```live```](https://studynova-abhikant.vercel.app/)
 
-StudyNotion is a fully functional ed-tech learning platform that enables users to create, consume, and rate educational content. The platform is built using the ```MERN stack``` , which includes ```ReactJS```,``` NodeJS```, ```MongoDB```, and ```ExpressJS```.
+StudyNova is a fully functional ed-tech learning platform that enables users to create, consume, and rate educational content. The platform is built using the ```MERN stack``` , which includes ```ReactJS```,``` NodeJS```, ```MongoDB```, and ```ExpressJS```.
 
-### StudyNotion aims to provide:
+### StudyNova aims to provide:
 *	A seamless and interactive learning experience for students, making education more accessible and engaging.
 *	A platform for instructors to showcase their expertise and connect with learners across the globe.
 
 ### Front-end
-The front end of StudyNotion has all the necessary pages that an ed-tech platform should have. Some of these pages are:
+The front end of StudyNova has all the necessary pages that an ed-tech platform should have. Some of these pages are:
 
 #### For Students:
 *	**Homepage :** This page will have a brief introduction to the platform, as well as links to the course list and user details.
@@ -29,11 +29,11 @@ The front end of StudyNotion has all the necessary pages that an ed-tech platfor
 *	**Other Relevant Pages :** The admin will also have access to other relevant pages, such as user management and course management pages.
 
 ### Back-end
-The back end of StudyNotion provides a range of features and functionalities, including:
+The back end of StudyNova provides a range of features and functionalities, including:
 1.	**User authentication and authorization :** Students and instructors can sign up and log in to the platform using their email addresses and password. The platform also supports OTP (One-Time Password) verification and forgot password functionality for added security.
 2.	**Course management :** Instructors can create, read, update, and delete courses, as well as manage course content and media. Students can view and rate courses.
 3.	**Payment Integration :** Students will purchase and enrol on courses by completing the checkout flow that is followed by Razorpay integration for payment handling.
-4.	**Cloud-based media management :** StudyNotion uses Cloudinary, a cloud-based media management service, to store and manage all media content, including images, videos, and documents.
+4.	**Cloud-based media management :** StudyNova uses Cloudinary, a cloud-based media management service, to store and manage all media content, including images, videos, and documents.
 5.	**Markdown formatting :** Course content in document format is stored in Markdown format, which allows for easier display and rendering on the front end.
 
 
