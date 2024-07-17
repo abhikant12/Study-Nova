@@ -10,13 +10,55 @@ StudyNova is a fully functional ed-tech learning platform that enables users to 
 The front end of StudyNova has all the necessary pages that an ed-tech platform should have. Some of these pages are:
 
 #### For Students:
-*	**Homepage :** This page will have a brief introduction to the platform, as well as links to the course list and user details.
-*	**Course List :** This page will have a list of all the courses available on the platform, along with their descriptions and ratings.
-*	**Wishlist :** This page will display all the courses that a student has added to their wishlist.
-*	**Cart Checkout :** This page will allow the user to complete the course purchase.
-*	**Course Content :** This page will have the course content for a particular course, including videos, and other related material.
-*	**User Details :** This page will have details about the student's account, including their name, email, and other relevant information.
-*	**User Edit Details :** This page will allow the student to edit their account details.
+
+1. **Homepage:**
+    - Brief introduction to the platform
+    - Links to the course list and user details
+    - Overview of key features such as Virtual Study Room, Discussion Forums, Progress Tracking, and Doubt Support
+
+2. **Course List:**
+    - List of all available courses
+    - Course descriptions
+    - Course ratings
+    - Option to add courses to wishlist or cart
+
+3. **Wishlist:**
+    - Display of courses added to the student's wishlist
+    - Option to remove courses from the wishlist
+    - Option to move courses from wishlist to cart
+
+4. **Cart Checkout:**
+    - Overview of courses in the cart
+    - Payment options
+    - Confirmation of course purchase
+
+5. **Course Content:**
+    - Detailed content for a particular course
+    - Videos and other related materials
+    - Links to Discussion Forums for the course
+    - Progress Tracking for the course
+
+6. **User Details:**
+    - Student's account details including name, email, etc.
+    - Overview of enrolled courses
+    - Links to edit account details
+
+7. **User Edit Details:**
+    - Form to edit account details like name, email, and password
+
+8. **Virtual Study Room:**
+    - Create or join a virtual study room with video and audio capabilities
+    - Real-time chat, Collabrative Whiteboard, Screen share functionality within the study room
+
+9. **Discussion Forums:**
+    - Interactive forums where students and instructors can engage in discussions and answer queries
+
+10. **Progress Tracking:**
+    - Track learning progress with detailed analytics and reports for students and instructors
+
+11. **Doubt Support:**
+    - Get your doubts resolved quickly with dedicated support from instructors and peers	
+
 #### For Instructors:
 * **Dashboard :** This page will have an overview of the instructor's courses, as well as the ratings and feedback for each course.
 *	**Insights :** This page will have detailed insights into the instructor's courses, including the number of views, clicks, and other relevant metrics.
@@ -43,7 +85,7 @@ This starter pack includes a basic setup for using **Tailwind CSS with React**. 
 
 1. Clone the repository to your local machine.
     ```sh
-    git clone https://github.com/abhikant12/Study-Notion.git
+    git clone https://github.com/abhikant12/Study-Nova.git
     ```
 
 1. Install the required packages.
