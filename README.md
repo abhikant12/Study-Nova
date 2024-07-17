@@ -6,11 +6,10 @@ StudyNova is a fully functional ed-tech learning platform that enables users to 
 * A seamless and interactive learning experience for students, making education more accessible and engaging.
 * A platform for instructors to showcase their expertise and connect with learners across the globe.
 
-### Front-end
+## Front-end
 The front end of StudyNova has all the necessary pages that an ed-tech platform should have. Some of these pages are:
 
-#### For Students:
-
+### For Students:
 1. **Homepage:**
     - Brief introduction to the platform
     - Links to the course list and user details
@@ -57,10 +56,10 @@ The front end of StudyNova has all the necessary pages that an ed-tech platform 
     - Track learning progress with detailed analytics and reports for students and instructors
 
 11. **Doubt Support:**
-    - Get your doubts resolved quickly with dedicated support from instructors and peers
+    - Get your doubts resolved quickly with dedicated support from instructors and peers.
 
-#### For Instructors:
 
+### For Instructors:
 1. **Dashboard:**
     - Overview of the instructor's courses
     - Ratings and feedback for each course
@@ -74,10 +73,10 @@ The front end of StudyNova has all the necessary pages that an ed-tech platform 
     - Manage course content and pricing
 
 4. **View and Edit Profile Details:**
-    - View and edit account details
+    - View and edit account details.
 
-#### For Admin:
 
+### For Admin:
 1. **Dashboard:**
     - Overview of the platform's courses, instructors, and students
 
@@ -92,7 +91,7 @@ The front end of StudyNova has all the necessary pages that an ed-tech platform 
 4. **Other Relevant Pages:**
     - Access to user management and course management pages
 
-### Back-end
+## Back-end
 The back end of StudyNova provides a range of features and functionalities, including:
 
 1. **User Authentication and Authorization:**
@@ -114,6 +113,7 @@ The back end of StudyNova provides a range of features and functionalities, incl
 5. **Markdown Formatting:**
     - Course content in document format is stored in Markdown format
     - Easier display and rendering on the front end
+
 
 ## Installation and Setup
 
